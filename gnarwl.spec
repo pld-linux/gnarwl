@@ -12,14 +12,17 @@ Patch1:		%{name}-opt.patch
 URL:		http://www.oss.billiton.de/
 BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
-BuildRequires:	openldap-devel
 BuildRequires:	groff
-Requires(pre):	/usr/bin/getgid
+BuildRequires:	openldap-devel
+BuildRequires:	rpmbuild(macros) >= 1.159
 Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
+Provides:	group(gnarwl)
+Provides:	user(gnarwl)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,26 +59,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 if [ -n "`/usr/bin/getgid gnarwl`" ]; then
-	if [ "`/usr/bin/getgid gnarwl`" != "26" ]; then
+	if [ "`/usr/bin/getgid gnarwl`" != 26 ]; then
 		echo "Error: group gnarwl doesn't have gid=26. Correct this before installing gnarwl" 1>&2
 		exit 1
 	fi
 else
-	/usr/sbin/groupadd -g 26 -r -f gnarwl
+	/usr/sbin/groupadd -g 26 gnarwl
 fi
 if [ -n "`/bin/id -u gnarwl 2>/dev/null`" ]; then
-	if [ "`/bin/id -u gnarwl`" != "26" ]; then
+	if [ "`/bin/id -u gnarwl`" != 26 ]; then
 		echo "Error: user gnarwl doesn't have uid=26. Correct this before installing gnarwl" 1>&2
 		exit 1
 	fi
 else
-	/usr/sbin/useradd -u 26 -r -d /var/lib/gnarwl -s /usr/bin/gnarwl -c "Gnarwl User" -g gnarwl gnarwl 1>&2
+	/usr/sbin/useradd -u 26 -d /var/lib/gnarwl -s /usr/bin/gnarwl \
+		-c "Gnarwl User" -g gnarwl gnarwl 1>&2
 fi
 
 %postun
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel gnarwl 2> /dev/null
-	/usr/sbin/groupdel gnarwl 2> /dev/null
+	%userremove gnarwl
+	%groupremove gnarwl
 fi
 
 %files
