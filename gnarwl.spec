@@ -9,6 +9,7 @@ Source0:	http://www.oss.billiton.de/download/%{name}-%{version}.tgz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-opt.patch
 URL:		http://www.oss.billiton.de/
+Requires(pre):	user-gnarwl
 BuildRequires:	gdbm-devel
 BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -46,31 +47,6 @@ echo '|/usr/bin/gnarwl' > $RPM_BUILD_ROOT/var/lib/gnarwl/.forward
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%pre
-if [ -n "`/usr/bin/getgid gnarwl`" ]; then
-        if [ "`/usr/bin/getgid gnarwl`" != "26" ]; then
-                echo "Error: group gnarwl doesn't have gid=26. Correct this before installing gnarwl" 1>&2
-                exit 1
-        fi
-else
-	/usr/sbin/groupadd -g 26 -r -f gnarwl
-fi
-if [ -n "`/bin/id -u gnarwl 2>/dev/null`" ]; then
-	if [ "`/bin/id -u gnarwl`" != "26" ]; then
-		echo "Error: user gnarwl doesn't have uid=26. Correct this before installing gnarwl"
-1>&2
-	exit 1
-	fi
-else
-	/usr/sbin/useradd -u 26 -r -d /var/lib/gnarwl -s /usr/bin/gnarwl -c "Gnarwl User" -g gnarwl gnarwl 1>&2
-fi
-
-%postun
-if [ "$1" = "0" ]; then
-        /usr/sbin/userdel gnarwl 2> /dev/null
-        /usr/sbin/groupdel gnarwl 2> /dev/null
-fi
 
 %files
 %defattr(644,root,root,755)
