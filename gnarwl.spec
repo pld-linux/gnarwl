@@ -13,6 +13,7 @@ URL:		http://www.oss.billiton.de/
 BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
 BuildRequires:	openldap-devel
+BuildRequires:	groff
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
