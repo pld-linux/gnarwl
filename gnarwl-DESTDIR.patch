@@ -1,36 +1,71 @@
-diff -Nur gnarwl-1.2/Makefile gnarwl-1.2-new/Makefile
---- gnarwl-1.2/Makefile	Sun May 26 22:30:18 2002
-+++ gnarwl-1.2-new/Makefile	Sun May 26 22:40:21 2002
-@@ -3,11 +3,11 @@
- ## Change these to suit your needs (do not forget the trailing slashes!)
- ##
- 
--HOMEDIR=/var/lib/gnarwl/
--BINDIR=/usr/local/bin/
--DOCDIR=/usr/share/doc/packages/gnarwl/
--MANDIR=/usr/local/man/
--CONFDIR=/etc/
-+HOMEDIR=$(DESTDIR)/var/lib/gnarwl/
-+BINDIR=$(DESTDIR)/usr/bin/
-+DOCDIR=$(DESTDIR)/usr/share/doc/packages/gnarwl/
-+MANDIR=$(DESTDIR)/usr/local/man/
-+CONFDIR=$(DESTDIR)/etc/
- 
- ##
- ## No serviceable parts below
-@@ -40,11 +40,10 @@
- 	cd ..; tar -czf $(BIN)-$(VER).tgz $(shell basename $(shell pwd))
+diff -uNr gnarwl-3.3.orig/data/Makefile gnarwl-3.3/data/Makefile
+--- gnarwl-3.3.orig/data/Makefile	2002-12-13 01:48:20.000000000 +0100
++++ gnarwl-3.3/data/Makefile	2004-03-10 13:28:56.000000000 +0100
+@@ -13,11 +13,11 @@
+ 	@sed "s\\_BIN_\\$(BIN)\\g ; s\\_VER_\\$(VER)\\g; s\\_SBIN_\\$(SBIN)\\g; s\\_SEC_\\$(MAN_SEC)\\g" < spec.tmpl > $(BIN)-$(VER).spec 
  
  install:
--	grep $(BIN) /etc/passwd > /dev/null || useradd -d $(HOMEDIR) $(BIN)
--	install -m 755 -o gnarwl -d $(CONFDIR) $(BINDIR) $(DOCDIR) $(MANDIR)/man$(MAN_SEC) $(HOMEDIR)/db
--	install -m 755 -o gnarwl -s $(BIN) $(BINDIR)
--	install -m 400 -o gnarwl doc/gnarwl.cfg $(CONFDIR)
--	install -m 400 -o gnarwl doc/blacklist.txt $(HOMEDIR)
-+	install -m 755 -d $(CONFDIR) $(BINDIR) $(DOCDIR) $(MANDIR)/man$(MAN_SEC) $(HOMEDIR)/db
-+	install -m 755 -s $(BIN) $(BINDIR)
-+	install -m 400 doc/gnarwl.cfg $(CONFDIR)
-+	install -m 400 doc/blacklist.txt $(HOMEDIR)
- 	install -m 644 doc/* $(DOCDIR)
- 	install -m 644 doc/$(BIN).$(MAN_SEC) $(MANDIR)/man$(MAN_SEC)
- 	echo \|$(BINDIR)/$(BIN) > $(HOMEDIR).forward
+-	mkdir -m 755 -p  $(HOMEDIR)/block $(HOMEDIR)/bin $(CONFDIR)
+-	echo \|$(BINDIR)/$(BIN) > $(HOMEDIR)/.forward
+-	install -m 644 header.txt $(HOMEDIR)
+-	install -m 644 footer.txt $(HOMEDIR)
+-	install -m 600 gnarwl.cfg $(CONFDIR)
+-	cat badheaders.txt | $(SBINDIR)/$(SBIN) -a $(HOMEDIR)/badheaders.db
+-	cat blacklist.txt | $(SBINDIR)/$(SBIN) -a $(HOMEDIR)/blacklist.db
++	mkdir -m 755 -p  $(DESTDIR)$(HOMEDIR)/block $(DESTDIR)$(HOMEDIR)/bin $(DESTDIR)$(CONFDIR)
++	echo \|$(BINDIR)/$(BIN) > $(DESTDIR)$(HOMEDIR)/.forward
++	install -m 644 header.txt $(DESTDIR)$(HOMEDIR)
++	install -m 644 footer.txt $(DESTDIR)$(HOMEDIR)
++	install -m 600 gnarwl.cfg $(DESTDIR)$(CONFDIR)
++	cat badheaders.txt | $(DESTDIR)$(SBINDIR)/$(SBIN) -a $(DESTDIR)$(HOMEDIR)/badheaders.db
++	cat blacklist.txt | $(DESTDIR)$(SBINDIR)/$(SBIN) -a $(DESTDIR)$(HOMEDIR)/blacklist.db
+ 
+diff -uNr gnarwl-3.3.orig/doc/Makefile gnarwl-3.3/doc/Makefile
+--- gnarwl-3.3.orig/doc/Makefile	2003-06-13 11:29:44.000000000 +0200
++++ gnarwl-3.3/doc/Makefile	2004-03-10 13:27:45.000000000 +0100
+@@ -13,19 +13,15 @@
+ 
+ 
+ install:
+-	mkdir -m 755 -p $(DOCDIR) $(MANDIR)/man$(MAN_SEC)
+-	install -m 644 $(BIN).$(MAN_SEC) $(MANDIR)/man$(MAN_SEC)
+-	install -m 644 $(SBIN).$(MAN_SEC) $(MANDIR)/man$(MAN_SEC)
+-	install -m 644 FAQ $(DOCDIR)
+-	install -m 644 LICENSE $(DOCDIR)
+-	install -m 644 AUTHORS $(DOCDIR)
+-	install -m 644 INSTALL $(DOCDIR)
+-	install -m 644 ISPEnv.schema $(DOCDIR)
+-	install -m 644 ISPEnv2.schema $(DOCDIR)
+-	install -m 644 example.ldif $(DOCDIR)
+-	install -m 644 HISTORY $(DOCDIR)
+-	install -m 644 README $(DOCDIR)
+-	gzip -f -9 $(DOCDIR)/FAQ
+-	gzip -f -9 $(DOCDIR)/HISTORY
+-	gzip -f -9 $(MANDIR)/man$(MAN_SEC)/$(BIN).$(MAN_SEC)
+-	gzip -f -9 $(MANDIR)/man$(MAN_SEC)/$(SBIN).$(MAN_SEC)
++	mkdir -m 755 -p $(DESTDIR)$(DOCDIR) $(DESTDIR)$(MANDIR)/man$(MAN_SEC)
++	install -m 644 $(BIN).$(MAN_SEC) $(DESTDIR)$(MANDIR)/man$(MAN_SEC)
++	install -m 644 $(SBIN).$(MAN_SEC) $(DESTDIR)$(MANDIR)/man$(MAN_SEC)
++	install -m 644 FAQ $(DESTDIR)$(DOCDIR)
++	install -m 644 LICENSE $(DESTDIR)$(DOCDIR)
++	install -m 644 AUTHORS $(DESTDIR)$(DOCDIR)
++	install -m 644 INSTALL $(DESTDIR)$(DOCDIR)
++	install -m 644 ISPEnv.schema $(DESTDIR)$(DOCDIR)
++	install -m 644 ISPEnv2.schema $(DESTDIR)$(DOCDIR)
++	install -m 644 example.ldif $(DESTDIR)$(DOCDIR)
++	install -m 644 HISTORY $(DESTDIR)$(DOCDIR)
++	install -m 644 README $(DESTDIR)$(DOCDIR)
+diff -uNr gnarwl-3.3.orig/src/Makefile gnarwl-3.3/src/Makefile
+--- gnarwl-3.3.orig/src/Makefile	2003-01-28 11:28:45.000000000 +0100
++++ gnarwl-3.3/src/Makefile	2004-03-10 13:28:08.000000000 +0100
+@@ -14,7 +14,7 @@
+ 	rm -f DEADJOE *.o *~ $(BIN) $(SBIN)
+ 
+ install:
+-	mkdir -m 755 -p $(BINDIR) $(SBINDIR)
+-	install -m 755 -s $(BIN) $(BINDIR)
+-	install -m 755 -s $(SBIN) $(SBINDIR)
++	mkdir -m 755 -p $(DESTDIR)$(BINDIR) $(DESTDIR)$(SBINDIR)
++	install -m 755 -s $(BIN) $(DESTDIR)$(BINDIR)
++	install -m 755 -s $(SBIN) $(DESTDIR)$(SBINDIR)
+ 
