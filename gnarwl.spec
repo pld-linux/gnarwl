@@ -1,5 +1,5 @@
 Summary:	Gnu Neat Auto Reply With LDAP
-Summary(pl):	Gnu Neat Auto Reply With LDAP
+Summary(pl):	Gnu Neat Auto Reply With LDAP - autoresponder korzystaj±cy z LDAP
 Name:		gnarwl
 Version:	1.2
 Release:	2
@@ -7,9 +7,10 @@ License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.oss.billiton.de/download/%{name}-%{version}.tgz
 Patch0:		%{name}-DESTDIR.patch
-BuildRequires:	openldap-devel
+Patch1:		%{name}-opt.patch
+URL:		http://www.oss.billiton.de/
 BuildRequires:	gdbm-devel
-URL:		http://www.oss.billiton.de
+BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -18,24 +19,27 @@ mailservers, on which users may not (nescessarily) have
 systemaccoounts, but where userinformation is stored in LDAP.
 
 %description -l pl
-Gnarwl, to system automatycznego odpowiadania na listy stworzony z
+Gnarwl to system automatycznego odpowiadania na listy stworzony z
 my¶l± o serwerach poczty, na których u¿ytkownicy nie musz± posiadaæ
 prawdziwych kont systemowych, a informacje o u¿ytkownikach znajduj±
 siê w bazie LDAP.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
-%{__make}
+%{__make} \
+	CC="%{__cc}" \
+	OPT="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_mandir}/man8
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install doc/gnarwl.8 $RPM_BUILD_ROOT%{_mandir}/man8
 echo '|/usr/bin/gnarwl' > $RPM_BUILD_ROOT/var/lib/gnarwl/.forward
@@ -46,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 if [ -n "`/usr/bin/getgid gnarwl`" ]; then
         if [ "`/usr/bin/getgid gnarwl`" != "26" ]; then
-                echo "Warning: group gnarwl haven't gid=26. Correct this before installing gnarwl" 1>&2
+                echo "Error: group gnarwl doesn't have gid=26. Correct this before installing gnarwl" 1>&2
                 exit 1
         fi
 else
@@ -54,7 +58,7 @@ else
 fi
 if [ -n "`/bin/id -u gnarwl 2>/dev/null`" ]; then
 	if [ "`/bin/id -u gnarwl`" != "26" ]; then
-		echo "Warning: user gnarwl haven't uid=26. Correct this before installing gnarwl"
+		echo "Error: user gnarwl doesn't have uid=26. Correct this before installing gnarwl"
 1>&2
 	exit 1
 	fi
