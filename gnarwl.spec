@@ -6,6 +6,7 @@ Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.oss.billiton.de/download/%{name}-%{version}.tgz
+# Source0-md5:	40e4edaaaa3241d2e54af64ab66261a3
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-opt.patch
 URL:		http://www.oss.billiton.de/
