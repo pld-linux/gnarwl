@@ -1,0 +1,36 @@
+diff -Nur gnarwl-1.2/Makefile gnarwl-1.2-new/Makefile
+--- gnarwl-1.2/Makefile	Sun May 26 22:30:18 2002
++++ gnarwl-1.2-new/Makefile	Sun May 26 22:40:21 2002
+@@ -3,11 +3,11 @@
+ ## Change these to suit your needs (do not forget the trailing slashes!)
+ ##
+ 
+-HOMEDIR=/var/lib/gnarwl/
+-BINDIR=/usr/local/bin/
+-DOCDIR=/usr/share/doc/packages/gnarwl/
+-MANDIR=/usr/local/man/
+-CONFDIR=/etc/
++HOMEDIR=$(DESTDIR)/var/lib/gnarwl/
++BINDIR=$(DESTDIR)/usr/bin/
++DOCDIR=$(DESTDIR)/usr/share/doc/packages/gnarwl/
++MANDIR=$(DESTDIR)/usr/local/man/
++CONFDIR=$(DESTDIR)/etc/
+ 
+ ##
+ ## No serviceable parts below
+@@ -40,11 +40,10 @@
+ 	cd ..; tar -czf $(BIN)-$(VER).tgz $(shell basename $(shell pwd))
+ 
+ install:
+-	grep $(BIN) /etc/passwd > /dev/null || useradd -d $(HOMEDIR) $(BIN)
+-	install -m 755 -o gnarwl -d $(CONFDIR) $(BINDIR) $(DOCDIR) $(MANDIR)/man$(MAN_SEC) $(HOMEDIR)/db
+-	install -m 755 -o gnarwl -s $(BIN) $(BINDIR)
+-	install -m 400 -o gnarwl doc/gnarwl.cfg $(CONFDIR)
+-	install -m 400 -o gnarwl doc/blacklist.txt $(HOMEDIR)
++	install -m 755 -d $(CONFDIR) $(BINDIR) $(DOCDIR) $(MANDIR)/man$(MAN_SEC) $(HOMEDIR)/db
++	install -m 755 -s $(BIN) $(BINDIR)
++	install -m 400 doc/gnarwl.cfg $(CONFDIR)
++	install -m 400 doc/blacklist.txt $(HOMEDIR)
+ 	install -m 644 doc/* $(DOCDIR)
+ 	install -m 644 doc/$(BIN).$(MAN_SEC) $(MANDIR)/man$(MAN_SEC)
+ 	echo \|$(BINDIR)/$(BIN) > $(HOMEDIR).forward
