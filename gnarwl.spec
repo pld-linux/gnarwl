@@ -2,7 +2,7 @@ Summary:	Gnu Neat Auto Reply With LDAP
 Summary(pl):	Gnu Neat Auto Reply With LDAP
 Name:		gnarwl
 Version:	1.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.oss.billiton.de/download/%{name}-%{version}.tgz
@@ -38,6 +38,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man8
 	DESTDIR=$RPM_BUILD_ROOT \
 
 install doc/gnarwl.8 $RPM_BUILD_ROOT%{_mandir}/man8
+echo '|/usr/bin/gnarwl' > $RPM_BUILD_ROOT/var/lib/gnarwl/.forward
 
 %clean
 rm -rf $RPM_BUILD_ROOT
