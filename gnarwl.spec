@@ -1,17 +1,24 @@
 Summary:	Gnu Neat Auto Reply With LDAP
 Summary(pl):	Gnu Neat Auto Reply With LDAP - autoresponder korzystaj±cy z LDAP
 Name:		gnarwl
-Version:	1.2
-Release:	2
+Version:	3.3
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.oss.billiton.de/download/%{name}-%{version}.tgz
-# Source0-md5:	40e4edaaaa3241d2e54af64ab66261a3
+# Source0-md5:	ec2bb56301988e300741eec8190b165e
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-opt.patch
 URL:		http://www.oss.billiton.de/
+BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
 BuildRequires:	openldap-devel
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,19 +38,17 @@ siê w bazie LDAP.
 %patch1 -p1
 
 %build
-%{__make} \
-	CC="%{__cc}" \
-	OPT="%{rpmcflags}"
+%{__autoconf}
+%configure \
+	--with-homedir=/var/lib/gnarwl
+
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_mandir}/man8
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install doc/gnarwl.8 $RPM_BUILD_ROOT%{_mandir}/man8
-echo '|/usr/bin/gnarwl' > $RPM_BUILD_ROOT/var/lib/gnarwl/.forward
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -75,11 +80,16 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README doc/{AUTHORS,BUGS,CHANGES,README.{pitfalls,security},TO-DO,USING,billiton.schema,example.ldif}
+%doc doc/{AUTHORS,FAQ,HISTORY,INSTALL,ISPEnv2.schema,ISPEnv.schema,LICENSE,README,README.upgrade,example.ldif}
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_sbindir}/*
 %config(noreplace) %verify(not size mtime md5) %attr(640,root,gnarwl) %{_sysconfdir}/gnarwl.cfg
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl
-%attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/db
+%attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/block
+%attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/bin
 %attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/.forward
-%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/blacklist.txt
+%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/blacklist.db
+%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/badheaders.db
+%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/footer.txt 
+%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/header.txt
 %{_mandir}/man*/*
