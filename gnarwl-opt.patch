@@ -1,0 +1,11 @@
+--- gnarwl-1.2/Makefile.orig	Mon May 27 11:37:40 2002
++++ gnarwl-1.2/Makefile	Mon May 27 11:38:07 2002
+@@ -19,7 +19,7 @@
+ VER=$(shell basename `pwd` | sed s\\$(BIN)-\\\\)
+ 
+ CC=gcc
+-CFLAGS=-g -Wall -O2 -DCFGFILE=\"$(CONFDIR)gnarwl.cfg\" -DVERSION=\"$(VER)\"
++CFLAGS=-Wall $(OPT) -DCFGFILE=\"$(CONFDIR)gnarwl.cfg\" -DVERSION=\"$(VER)\"
+ LFLAGS=-lldap -lgdbm
+ 
+ export VER BIN CC CFLAGS LFLAGS HOMEDIR BINDIR DOCDIR MANDIR CONFDIR MAN_SEC
