@@ -14,7 +14,7 @@ BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
 BuildRequires:	groff
 BuildRequires:	openldap-devel
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
@@ -58,23 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`/usr/bin/getgid gnarwl`" ]; then
-	if [ "`/usr/bin/getgid gnarwl`" != 26 ]; then
-		echo "Error: group gnarwl doesn't have gid=26. Correct this before installing gnarwl" 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -g 26 gnarwl
-fi
-if [ -n "`/bin/id -u gnarwl 2>/dev/null`" ]; then
-	if [ "`/bin/id -u gnarwl`" != 26 ]; then
-		echo "Error: user gnarwl doesn't have uid=26. Correct this before installing gnarwl" 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -u 26 -d /var/lib/gnarwl -s /usr/bin/gnarwl \
-		-c "Gnarwl User" -g gnarwl gnarwl 1>&2
-fi
+%groupadd -g 26 gnarwl
+%useradd -u 26 -d /var/lib/gnarwl -s /usr/bin/gnarwl -c "Gnarwl User" -g gnarwl gnarwl
 
 %postun
 if [ "$1" = "0" ]; then
