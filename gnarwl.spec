@@ -72,13 +72,13 @@ fi
 %doc doc/{AUTHORS,FAQ,HISTORY,INSTALL,ISPEnv2.schema,ISPEnv.schema,LICENSE,README,README.upgrade,example.ldif}
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
-%config(noreplace) %verify(not size mtime md5) %attr(640,root,gnarwl) %{_sysconfdir}/gnarwl.cfg
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,gnarwl) %{_sysconfdir}/gnarwl.cfg
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/block
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/bin
 %attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/.forward
 %attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/blacklist.db
 %attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/badheaders.db
-%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/footer.txt 
+%attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/footer.txt
 %attr(640,gnarwl,gnarwl) %{_var}/lib/gnarwl/header.txt
 %{_mandir}/man*/*
