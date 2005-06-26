@@ -5,11 +5,11 @@ Version:	3.3
 Release:	3
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://www.oss.billiton.de/download/%{name}-%{version}.tgz
+Source0:	http://www.home.unix-ag.org/patrick/software/gnarwl/%{name}-%{version}.tgz
 # Source0-md5:	ec2bb56301988e300741eec8190b165e
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-opt.patch
-URL:		http://www.oss.billiton.de/
+URL:		http://www.home.unix-ag.org/patrick/index.php?gnarwl
 BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
 BuildRequires:	groff
@@ -73,6 +73,7 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %config(noreplace) %verify(not md5 mtime size) %attr(640,root,gnarwl) %{_sysconfdir}/gnarwl.cfg
+# TODO let root own the files
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/block
 %attr(755,gnarwl,gnarwl) %dir %{_var}/lib/gnarwl/bin
