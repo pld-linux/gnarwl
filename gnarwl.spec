@@ -14,7 +14,7 @@ BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
 BuildRequires:	groff
 BuildRequires:	openldap-devel >= 2.3.0
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.304
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
