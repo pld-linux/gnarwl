@@ -2,7 +2,7 @@ Summary:	Gnu Neat Auto Reply With LDAP
 Summary(pl):	Gnu Neat Auto Reply With LDAP - autoresponder korzystaj±cy z LDAP
 Name:		gnarwl
 Version:	3.3
-Release:	5.2
+Release:	5.3
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.home.unix-ag.org/patrick/software/gnarwl/%{name}-%{version}.tgz
@@ -106,11 +106,11 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %config(noreplace) %verify(not md5 mtime size) %attr(640,root,gnarwl) %{_sysconfdir}/gnarwl.cfg
 %attr(755,root,gnarwl) %dir %{_var}/lib/gnarwl
-%attr(755,root,gnarwl) %dir %{_var}/lib/gnarwl/block
+%attr(775,root,gnarwl) %dir %{_var}/lib/gnarwl/block
 %attr(755,root,gnarwl) %dir %{_var}/lib/gnarwl/bin
 %attr(640,root,gnarwl) %{_var}/lib/gnarwl/.forward
-%attr(640,root,gnarwl) %{_var}/lib/gnarwl/blacklist.db
-%attr(640,root,gnarwl) %{_var}/lib/gnarwl/badheaders.db
+%attr(660,root,gnarwl) %{_var}/lib/gnarwl/blacklist.db
+%attr(660,root,gnarwl) %{_var}/lib/gnarwl/badheaders.db
 %attr(640,root,gnarwl) %{_var}/lib/gnarwl/footer.txt
 %attr(640,root,gnarwl) %{_var}/lib/gnarwl/header.txt
 %{_mandir}/man*/*
