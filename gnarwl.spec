@@ -40,6 +40,7 @@ siê w bazie LDAP.
 
 %package -n openldap-schema-ISPEnv2
 Summary:	LDAP schema for gnarwl
+Summary(pl):	Schemat LDAP dla gnarwla
 Group:		Networking/Daemons
 Requires(post,postun):	sed >= 4.0
 Requires:	openldap-servers
@@ -47,6 +48,9 @@ Requires:	sed >= 4.0
 
 %description -n openldap-schema-ISPEnv2
 This package contains ISPEnv2.schema to be used with gnarwl.
+
+%description -n openldap-schema-ISPEnv2 -l pl
+Ten pakiet zawiera schemat LDAP ISPEnv2.schema do u¿ywania z gnarwlem.
 
 %prep
 %setup -q
