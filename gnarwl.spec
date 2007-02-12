@@ -1,5 +1,5 @@
 Summary:	Gnu Neat Auto Reply With LDAP
-Summary(pl):	Gnu Neat Auto Reply With LDAP - autoresponder korzystaj±cy z LDAP
+Summary(pl.UTF-8):   Gnu Neat Auto Reply With LDAP - autoresponder korzystajƒÖcy z LDAP
 Name:		gnarwl
 Version:	3.3
 Release:	6
@@ -32,15 +32,15 @@ Gnarwl is a email auto reply/vacation tool, intented to be used on
 mailservers, on which users may not (nescessarily) have
 systemaccoounts, but where userinformation is stored in LDAP.
 
-%description -l pl
+%description -l pl.UTF-8
 Gnarwl to system automatycznego odpowiadania na listy stworzony z
-my∂l± o serwerach poczty, na ktÛrych uøytkownicy nie musz± posiadaÊ
-prawdziwych kont systemowych, a informacje o uøytkownikach znajduj±
-siÍ w bazie LDAP.
+my≈õlƒÖ o serwerach poczty, na kt√≥rych u≈ºytkownicy nie muszƒÖ posiadaƒá
+prawdziwych kont systemowych, a informacje o u≈ºytkownikach znajdujƒÖ
+siƒô w bazie LDAP.
 
 %package -n openldap-schema-ISPEnv2
 Summary:	LDAP schema for gnarwl
-Summary(pl):	Schemat LDAP dla gnarwla
+Summary(pl.UTF-8):   Schemat LDAP dla gnarwla
 Group:		Networking/Daemons
 Requires(post,postun):	sed >= 4.0
 Requires:	openldap-servers
@@ -49,8 +49,8 @@ Requires:	sed >= 4.0
 %description -n openldap-schema-ISPEnv2
 This package contains ISPEnv2.schema to be used with gnarwl.
 
-%description -n openldap-schema-ISPEnv2 -l pl
-Ten pakiet zawiera schemat LDAP ISPEnv2.schema do uøywania z gnarwlem.
+%description -n openldap-schema-ISPEnv2 -l pl.UTF-8
+Ten pakiet zawiera schemat LDAP ISPEnv2.schema do u≈ºywania z gnarwlem.
 
 %prep
 %setup -q
