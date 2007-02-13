@@ -1,5 +1,5 @@
 Summary:	Gnu Neat Auto Reply With LDAP
-Summary(pl.UTF-8):   Gnu Neat Auto Reply With LDAP - autoresponder korzystający z LDAP
+Summary(pl.UTF-8):	Gnu Neat Auto Reply With LDAP - autoresponder korzystający z LDAP
 Name:		gnarwl
 Version:	3.3
 Release:	6
@@ -40,7 +40,7 @@ się w bazie LDAP.
 
 %package -n openldap-schema-ISPEnv2
 Summary:	LDAP schema for gnarwl
-Summary(pl.UTF-8):   Schemat LDAP dla gnarwla
+Summary(pl.UTF-8):	Schemat LDAP dla gnarwla
 Group:		Networking/Daemons
 Requires(post,postun):	sed >= 4.0
 Requires:	openldap-servers
