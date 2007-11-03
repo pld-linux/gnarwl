@@ -13,7 +13,7 @@ URL:		http://www.home.unix-ag.org/patrick/index.php?gnarwl
 BuildRequires:	autoconf
 BuildRequires:	gdbm-devel
 BuildRequires:	groff
-BuildRequires:	openldap-devel >= 2.3.0
+BuildRequires:	openldap-devel >= 2.4.6
 BuildRequires:	rpmbuild(macros) >= 1.304
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
