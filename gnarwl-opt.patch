@@ -1,11 +1,11 @@
---- gnarwl-3.3/Makefile.in.orig	Sat Jan 25 12:27:42 2003
-+++ gnarwl-3.3/Makefile.in	Wed Mar 10 15:11:42 2004
-@@ -38,7 +38,7 @@
+--- gnarwl-3.4/Makefile.in~	2008-06-30 00:03:59.982576509 +0000
++++ gnarwl-3.4/Makefile.in	2008-06-30 00:09:22.820036111 +0000
+@@ -39,7 +39,7 @@
  ##
  
  CC=@CC@
--CFLAGS=-DBLOCKDIR=\"$(BLOCKDIR)\" -DCFGFILE=\"$(CONFDIR)/gnarwl.cfg\" -DVERSION=\"$(VER)\" -g -Wall -O2 -I..
-+CFLAGS=@CFLAGS@ -DBLOCKDIR=\"$(BLOCKDIR)\" -DCFGFILE=\"$(CONFDIR)/gnarwl.cfg\" -DVERSION=\"$(VER)\" -Wall -I..
+-CFLAGS=-DLDAP_DEPRECATED -DBLOCKDIR=\"$(BLOCKDIR)\" -DCFGFILE=\"$(CONFDIR)/gnarwl.cfg\" -DVERSION=\"$(VER)\" -g -Wall -O2 -I..
++CFLAGS=@CFLAGS@ -DLDAP_DEPRECATED -DBLOCKDIR=\"$(BLOCKDIR)\" -DCFGFILE=\"$(CONFDIR)/gnarwl.cfg\" -DVERSION=\"$(VER)\" -Wall -I..
  LFLAGS=-lldap -lgdbm -ldl -lresolv
  
  ##
