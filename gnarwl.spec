@@ -1,12 +1,12 @@
 Summary:	Gnu Neat Auto Reply With LDAP
 Summary(pl.UTF-8):	Gnu Neat Auto Reply With LDAP - autoresponder korzystający z LDAP
 Name:		gnarwl
-Version:	3.4
+Version:	3.6
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.onyxbits.de/sites/default/files/%{name}-%{version}.tgz
-# Source0-md5:	166dbe369074ea1d94443a8c2ddfb75e
+# Source0-md5:	832d1e2264b7e47d318b16795d63da8e
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-opt.patch
 URL:		http://www.onyxbits.de/gnarwl/
